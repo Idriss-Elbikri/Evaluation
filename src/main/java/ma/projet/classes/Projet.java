@@ -27,15 +27,12 @@ public class Projet {
     @Temporal(TemporalType.DATE)
     private Date dateFin;
 
-    // Relation : Plusieurs projets peuvent être gérés par un Employe (Chef de projet)
     @ManyToOne
     private Employe chefDeProjet;
 
-    // Relation : Un projet est composé de plusieurs tâches
     @OneToMany(mappedBy = "projet", fetch = FetchType.LAZY)
     private List<Tache> taches;
 
-    // Constructeurs
     public Projet() {
     }
 
@@ -46,7 +43,6 @@ public class Projet {
         this.chefDeProjet = chefDeProjet;
     }
 
-    // Getters et Setters
     public int getId() {
         return id;
     }

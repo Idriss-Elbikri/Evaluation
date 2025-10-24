@@ -80,9 +80,6 @@ public class EmployeTacheService implements IDao<EmployeTache> {
         }
     }
 
-    /**
-     * Trouve une EmployeTache par sa clé composite (EmployeTachePK)
-     */
     @Override
     public EmployeTache findById(Object id) {
         if (!(id instanceof EmployeTachePK)) {

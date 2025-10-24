@@ -19,15 +19,12 @@ public class Employe {
     private String prenom;
     private String telephone;
 
-    // Relation : Un employé peut être chef de plusieurs projets
     @OneToMany(mappedBy = "chefDeProjet")
     private List<Projet> projetsGeres;
 
-    // Relation : Un employé peut avoir plusieurs tâches assignées
     @OneToMany(mappedBy = "employe", fetch = FetchType.LAZY)
     private List<EmployeTache> tachesAssignees;
 
-    // Constructeurs
     public Employe() {
     }
 
@@ -37,7 +34,6 @@ public class Employe {
         this.telephone = telephone;
     }
 
-    // Getters et Setters
     public int getId() {
         return id;
     }

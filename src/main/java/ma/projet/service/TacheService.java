@@ -129,14 +129,6 @@ public class TacheService implements IDao<Tache> {
         }
     }
 
-    //
-    // MÉTHODES SPÉCIFIQUES DEMANDÉES DANS LE TP
-    //
-
-    /**
-     * Affiche la liste des tâches dont le prix est supérieur à 1000 DH (requête nommée).
-     *
-     */
     public List<Tache> findTachesPrixSup1000() {
         Session session = null;
         Transaction tx = null;
@@ -145,7 +137,6 @@ public class TacheService implements IDao<Tache> {
             session = HibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
 
-            // Utilisation de la NamedQuery définie dans l'entité Tache
             Query query = session.getNamedQuery("Tache.findPrixSup1000");
             taches = query.list();
 
@@ -164,11 +155,6 @@ public class TacheService implements IDao<Tache> {
         }
     }
 
-    /**
-     * Affiche la liste des tâches réalisées (ayant une date de fin réelle)
-     * entre deux dates.
-     *
-     */
     public List<Tache> findTachesRealiseesEntreDates(Date dateDebut, Date dateFin) {
         Session session = null;
         Transaction tx = null;

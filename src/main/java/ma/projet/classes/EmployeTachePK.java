@@ -10,11 +10,9 @@ public class EmployeTachePK implements Serializable {
     private int employeId;
     private int tacheId;
 
-    // Constructeurs
     public EmployeTachePK() {
     }
 
-    // Getters et Setters
     public int getEmployeId() {
         return employeId;
     }
@@ -31,7 +29,6 @@ public class EmployeTachePK implements Serializable {
         this.tacheId = tacheId;
     }
 
-    // Il est crucial de redéfinir equals() et hashCode() pour les clés composites
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -9,8 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.NamedQuery; // N'oubliez pas cet import
-import javax.persistence.NamedQueries; // N'oubliez pas cet import
+import javax.persistence.NamedQuery;
+import javax.persistence.NamedQueries;
 
 import java.util.Date;
 import java.util.List;
@@ -36,15 +36,12 @@ public class Tache {
 
     private double prix;
 
-    // Relation : Plusieurs tâches appartiennent à un projet
     @ManyToOne
     private Projet projet;
 
-    // Relation : Une tâche peut être assignée à plusieurs employés
     @OneToMany(mappedBy = "tache", fetch = FetchType.LAZY)
     private List<EmployeTache> employesAssignes;
 
-    // Constructeurs
     public Tache() {
     }
 
@@ -56,7 +53,6 @@ public class Tache {
         this.projet = projet;
     }
 
-    // Getters et Setters
     public int getId() {
         return id;
     }

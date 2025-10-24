@@ -28,7 +28,6 @@ public class EmployeTache {
     @JoinColumn(name = "tacheId", referencedColumnName = "id", insertable = false, updatable = false)
     private Tache tache;
 
-    // Constructeurs
     public EmployeTache() {
     }
 
@@ -38,7 +37,6 @@ public class EmployeTache {
         this.dateFinReelle = dateFinReelle;
     }
 
-    // Getters et Setters
     public EmployeTachePK getId() {
         return id;
     }

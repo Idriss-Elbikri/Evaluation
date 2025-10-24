@@ -20,28 +20,22 @@ public class TestExercice2 {
 
     public static void main(String[] args) {
 
-        // Initialiser Hibernate
         HibernateUtil.getSessionFactory();
 
-        // Instancier tous nos services
         EmployeService es = new EmployeService();
         ProjetService ps = new ProjetService();
         TacheService ts = new TacheService();
         EmployeTacheService ets = new EmployeTacheService();
 
-        // Formatteur de date pour les tests
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         try {
-            // --- 1. Création des Employés ---
             Employe emp1 = new Employe("El Bikri", "Idriss", "0612345678");
             Employe emp2 = new Employe("Alaoui", "Fatima", "0698765432");
             es.create(emp1);
             es.create(emp2);
             System.out.println("--- Employés créés ---");
 
-            // --- 2. Création d'un Projet ---
-            // Le chef de projet est emp1
             Projet proj1 = new Projet("Gestion de stock",
                     dateFormat.parse("2013-01-14"),
                     dateFormat.parse("2013-06-14"),
@@ -49,31 +43,24 @@ public class TestExercice2 {
             ps.create(proj1);
             System.out.println("--- Projet créé ---");
 
-            // --- 3. Création des Tâches ---
-            // Tâches planifiées
-            Tache t1 = new Tache("Analyse", dateFormat.parse("2013-02-10"), dateFormat.parse("2013-02-20"), 1200.0, proj1); // prix > 1000
-            Tache t2 = new Tache("Conception", dateFormat.parse("2013-03-10"), dateFormat.parse("2013-03-15"), 900.0, proj1); // prix < 1000
-            Tache t3 = new Tache("Développement", dateFormat.parse("2013-04-10"), dateFormat.parse("2013-04-25"), 1500.0, proj1); // prix > 1000
+            Tache t1 = new Tache("Analyse", dateFormat.parse("2013-02-10"), dateFormat.parse("2013-02-20"), 1200.0, proj1);
+            Tache t2 = new Tache("Conception", dateFormat.parse("2013-03-10"), dateFormat.parse("2013-03-15"), 900.0, proj1);
+            Tache t3 = new Tache("Développement", dateFormat.parse("2013-04-10"), dateFormat.parse("2013-04-25"), 1500.0, proj1);
             ts.create(t1);
             ts.create(t2);
             ts.create(t3);
             System.out.println("--- Tâches créées ---");
 
-            // --- 4. Assignation des Tâches (EmployeTache) ---
-            // Dates réelles
-            // emp1 (Idriss) fait la tâche 1 (Analyse)
             EmployeTachePK pk1 = new EmployeTachePK();
             pk1.setEmployeId(emp1.getId());
             pk1.setTacheId(t1.getId());
             ets.create(new EmployeTache(pk1, dateFormat.parse("2013-02-10"), dateFormat.parse("2013-02-20")));
 
-            // emp2 (Fatima) fait la tâche 2 (Conception)
             EmployeTachePK pk2 = new EmployeTachePK();
             pk2.setEmployeId(emp2.getId());
             pk2.setTacheId(t2.getId());
             ets.create(new EmployeTache(pk2, dateFormat.parse("2013-03-10"), dateFormat.parse("2013-03-15")));
 
-            // emp1 (Idriss) fait aussi la tâche 3 (Développement)
             EmployeTachePK pk3 = new EmployeTachePK();
             pk3.setEmployeId(emp1.getId());
             pk3.setTacheId(t3.getId());
@@ -81,12 +68,10 @@ public class TestExercice2 {
             System.out.println("--- Tâches assignées aux employés ---");
 
 
-            // --- 5. Phase de TEST des fonctionnalités ---
             System.out.println("\n--- DÉBUT DES TESTS ---");
 
-            // Test 1: Afficher l'exemple attendu
             System.out.println("\nTest 1: Affichage de l'exemple (Tâches planifiées du projet 1)");
-            Projet pTest = ps.findById(proj1.getId()); // On recharge le projet
+            Projet pTest = ps.findById(proj1.getId());
             System.out.println("Projet : " + pTest.getId() +
                     "   Nom : " + pTest.getNom() +
                     "   Date début : " + dateFormat.format(pTest.getDateDebut()));
@@ -99,7 +84,6 @@ public class TestExercice2 {
                         dateFormat.format(t.getDateFin()));
             }
 
-            // Test 2: Tâches réalisées par un employé (emp1)
             System.out.println("\nTest 2: Tâches réalisées par l'employé " + emp1.getNom() + ":");
             List<EmployeTache> tachesEmp1 = es.findTachesRealiseesParEmploye(emp1);
             for (EmployeTache et : tachesEmp1) {
@@ -107,21 +91,18 @@ public class TestExercice2 {
                         ", Date Fin Réelle: " + dateFormat.format(et.getDateFinReelle()));
             }
 
-            // Test 3: Projets gérés par un employé (emp1)
             System.out.println("\nTest 3: Projets gérés par " + emp1.getNom() + ":");
             List<Projet> projetsGeres = es.findProjetsGeresParEmploye(emp1);
             for (Projet p : projetsGeres) {
                 System.out.println("  - Projet: " + p.getNom());
             }
 
-            // Test 4: Tâches > 1000 DH (NamedQuery)
             System.out.println("\nTest 4: Tâches avec prix > 1000 DH:");
             List<Tache> tachesChers = ts.findTachesPrixSup1000();
             for (Tache t : tachesChers) {
                 System.out.println("  - " + t.getNom() + " (Prix: " + t.getPrix() + ")");
             }
 
-            // Test 5: Tâches réalisées entre deux dates
             Date d1 = dateFormat.parse("2013-01-01");
             Date d2 = dateFormat.parse("2013-03-31");
             System.out.println("\nTest 5: Tâches terminées entre 2013-01-01 et 2013-03-31:");

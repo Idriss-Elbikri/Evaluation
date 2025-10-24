@@ -129,14 +129,6 @@ public class ProjetService implements IDao<Projet> {
         }
     }
 
-    //
-    // MÉTHODES SPÉCIFIQUES DEMANDÉES DANS LE TP
-    //
-
-    /**
-     * Afficher la liste des tâches planifiées pour un projet.
-     *
-     */
     public List<Tache> findTachesPlanifiees(Projet projet) {
         Session session = null;
         Transaction tx = null;
@@ -144,7 +136,6 @@ public class ProjetService implements IDao<Projet> {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
-            // On récupère simplement toutes les tâches associées au projet
             Query query = session.createQuery("from Tache t where t.projet = :projet");
             query.setParameter("projet", projet);
             taches = query.list();
@@ -163,10 +154,6 @@ public class ProjetService implements IDao<Projet> {
         }
     }
 
-    /**
-     * Afficher la liste des tâches réalisées (avec dates réelles) pour un projet.
-     *
-     */
     public List<Tache> findTachesRealisees(Projet projet) {
         Session session = null;
         Transaction tx = null;
@@ -174,8 +161,6 @@ public class ProjetService implements IDao<Projet> {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
-            // On joint Tache et EmployeTache pour trouver les tâches
-            // du projet qui ont une date de fin réelle.
             Query query = session.createQuery(
                     "select distinct t from Tache t " +
                             "join t.employesAssignes et " +

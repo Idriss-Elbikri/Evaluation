@@ -130,14 +130,6 @@ public class EmployeService implements IDao<Employe> {
         }
     }
 
-    //
-    // MÉTHODES SPÉCIFIQUES DEMANDÉES DANS LE TP
-    //
-
-    /**
-     * Affiche la liste des tâches réalisées par un employé.
-     *
-     */
     public List<EmployeTache> findTachesRealiseesParEmploye(Employe employe) {
         Session session = null;
         Transaction tx = null;
@@ -145,7 +137,6 @@ public class EmployeService implements IDao<Employe> {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
-            // On cherche les EmployeTache où la date de fin réelle n'est pas nulle
             Query query = session.createQuery(
                     "from EmployeTache et " +
                             "where et.employe = :employe " +
@@ -168,10 +159,6 @@ public class EmployeService implements IDao<Employe> {
         }
     }
 
-    /**
-     * Affiche la liste des projets gérés par un employé (en tant que chef de projet).
-     *
-     */
     public List<Projet> findProjetsGeresParEmploye(Employe employe) {
         Session session = null;
         Transaction tx = null;
