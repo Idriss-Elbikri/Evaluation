@@ -79,13 +79,9 @@ public class LigneCommandeService implements IDao<LigneCommandeProduit> {
         }
     }
 
-    /**
-     * Trouve une LigneCommandeProduit par sa clé composite (LigneCommandeProduitPK)
-     */
     @Override
     public LigneCommandeProduit findById(Object id) {
         if (!(id instanceof LigneCommandeProduitPK)) {
-            // Gérer le cas où l'ID n'est pas du bon type
             return null;
         }
 

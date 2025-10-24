@@ -79,14 +79,13 @@ public class CommandeService implements IDao<Commande> {
     }
 
     @Override
-    public Commande findById(Object id) { // 1. Changer ici
+    public Commande findById(Object id) {
         Session session = null;
         Transaction tx = null;
         Commande commande = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
-            // 2. Ajouter un cast (Integer) ici
             commande = (Commande) session.get(Commande.class, (Integer) id);
             tx.commit();
             return commande;

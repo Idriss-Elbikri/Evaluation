@@ -7,7 +7,7 @@ import ma.projet.dao.IDao;
 import ma.projet.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query; // Assurez-vous d'importer org.hibernate.query.Query
+import org.hibernate.query.Query;
 
 import java.util.Date;
 import java.util.List;
@@ -84,14 +84,13 @@ public class ProduitService implements IDao<Produit> {
     }
 
     @Override
-    public Produit findById(Object id) { // 1. Changer ici
+    public Produit findById(Object id) {
         Session session = null;
         Transaction tx = null;
         Produit produit = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
-            // 2. Ajouter un cast (Integer) ici
             produit = (Produit) session.get(Produit.class, (Integer) id);
             tx.commit();
             return produit;
@@ -132,14 +131,6 @@ public class ProduitService implements IDao<Produit> {
         }
     }
 
-    //
-    // MÉTHODES SPÉCIFIQUES DEMANDÉES DANS LE TP
-    //
-
-    /**
-     * Affiche la liste des produits par catégorie.
-     *
-     */
     public List<Produit> findProduitsByCategorie(Categorie categorie) {
         Session session = null;
         Transaction tx = null;
@@ -165,10 +156,6 @@ public class ProduitService implements IDao<Produit> {
         }
     }
 
-    /**
-     * Affiche les produits commandés entre deux dates.
-     *
-     */
     public List<Produit> findProduitsCommandesEntreDates(Date dateDebut, Date dateFin) {
         Session session = null;
         Transaction tx = null;
@@ -176,7 +163,6 @@ public class ProduitService implements IDao<Produit> {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
-            // Requête HQL pour joindre Produit, LigneCommandeProduit, et Commande
             Query query = session.createQuery(
                     "select distinct p from Produit p " +
                             "join p.lignes l " +
@@ -201,10 +187,6 @@ public class ProduitService implements IDao<Produit> {
         }
     }
 
-    /**
-     * Affiche les produits commandés dans une commande donnée.
-     *
-     */
     public List<Produit> findProduitsByCommande(Commande commande) {
         Session session = null;
         Transaction tx = null;
@@ -234,11 +216,6 @@ public class ProduitService implements IDao<Produit> {
         }
     }
 
-    /**
-     * Affiche la liste des produits dont le prix est supérieur à 100 DH.
-     * Utilise une requête nommée (NamedQuery).
-     *
-     */
     public List<Produit> findProduitsPrixSuperieurA100() {
         Session session = null;
         Transaction tx = null;

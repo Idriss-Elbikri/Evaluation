@@ -21,12 +21,9 @@ public class Commande {
     @Temporal(TemporalType.DATE)
     private Date date;
 
-    // Relation : Une commande peut avoir plusieurs LigneCommandeProduit
-    // On met FetchType.EAGER pour charger les lignes de commande en même temps que la commande
     @OneToMany(mappedBy = "commande", fetch = FetchType.EAGER)
     private List<LigneCommandeProduit> lignes;
 
-    // Constructeurs
     public Commande() {
     }
 
@@ -34,7 +31,6 @@ public class Commande {
         this.date = date;
     }
 
-    // Getters et Setters
     public int getId() {
         return id;
     }

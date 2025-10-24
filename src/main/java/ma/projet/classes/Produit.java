@@ -17,15 +17,12 @@ public class Produit {
     private String reference;
     private float prix;
 
-    // Relation : Plusieurs produits peuvent appartenir à une catégorie
     @ManyToOne
     private Categorie categorie;
 
-    // Relation : Un produit peut être dans plusieurs lignes de commande
     @OneToMany(mappedBy = "produit")
     private List<LigneCommandeProduit> lignes;
 
-    // Constructeurs
     public Produit() {
     }
 
@@ -35,7 +32,6 @@ public class Produit {
         this.categorie = categorie;
     }
 
-    // Getters et Setters
     public int getId() {
         return id;
     }

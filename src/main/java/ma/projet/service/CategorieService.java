@@ -79,14 +79,13 @@ public class CategorieService implements IDao<Categorie> {
     }
 
     @Override
-    public Categorie findById(Object id) { // 1. Changer ici
+    public Categorie findById(Object id) {
         Session session = null;
         Transaction tx = null;
         Categorie categorie = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
-            // 2. Ajouter un cast (Integer) ici
             categorie = (Categorie) session.get(Categorie.class, (Integer) id);
             tx.commit();
             return categorie;

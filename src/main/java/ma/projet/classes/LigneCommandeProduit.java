@@ -21,7 +21,6 @@ public class LigneCommandeProduit {
     @JoinColumn(name = "produitId", referencedColumnName = "id", insertable = false, updatable = false)
     private Produit produit;
 
-    // Constructeurs
     public LigneCommandeProduit() {
     }
 
@@ -30,7 +29,6 @@ public class LigneCommandeProduit {
         this.quantite = quantite;
     }
 
-    // Getters et Setters
     public LigneCommandeProduitPK getId() {
         return id;
     }

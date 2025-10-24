@@ -17,11 +17,9 @@ public class Categorie {
     private String code;
     private String libelle;
 
-    // Relation : Une catégorie peut avoir plusieurs produits
     @OneToMany(mappedBy = "categorie")
     private List<Produit> produits;
 
-    // Constructeurs
     public Categorie() {
     }
 
@@ -30,7 +28,6 @@ public class Categorie {
         this.libelle = libelle;
     }
 
-    // Getters et Setters
     public int getId() {
         return id;
     }
